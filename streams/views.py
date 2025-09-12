@@ -7,20 +7,30 @@ def upcoming(request):
 
     youtube = build('youtube', 'v3', developerKey=api_key)
 
-    request_api = youtube.search().list(
-        part='snippet',
-        channelId='UChAnqc_AY5_I3Px5dig3X1Q',
-        eventType='upcoming',
-        type='video',
-        maxResults=1,
-    )
-    response=request_api.execute()
+    channel_ids = [
+        'UCvaTdHTWBGv3MKj3KVqJVCw',     # Nekomata Okayu
+        'UChAnqc_AY5_I3Px5dig3X1Q',     # Inugami Korone
+        'UCp-5t9SrOQwXMU7iIjQfARg',     # Ookami Mio
+        'UCdn5BQ06XqgXoAxIhbqw5Rg'      # Shirakami Fubuki
+    ]
 
-    items = response.get('items', [])
+    upcoming_streams = []
+
+    for cid in channel_ids:
+        request_api = youtube.search().list(
+            part='snippet',
+            channelId=cid,
+            eventType='upcoming',
+            type='video',
+            maxResults=1,
+        )
+        response=request_api.execute()
+        upcoming_streams.extend(response.get('items', []))
+
     streams = []
-    for item in items:
-        title = item['snippet']['title']
-        video_id = item['id']['videoId']
+    for stream in upcoming_streams:
+        title = stream['snippet']['title']
+        video_id = stream['id']['videoId']
         url = f'https://www.youtube.com/watch?v={video_id}'
         streams.append({'title':title, 'url':url})
 
