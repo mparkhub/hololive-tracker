@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lanh="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Upcoming Streams</title>
+    </head>
+    <body>
+        <h1>Upcoming Streams</h1>
+
+        <ul>
+            {% for stream in streams %}
+                <li>
+                    <a href="{{ stream.url }}" target="_blank">
+                        {{ stream.title }}
+                    </a>
+                </li>
+            {% empty %}
+                <li>No upcoming streams found.</li>
+            {% endfor %}
+        </ul>
+    </body>
+</html>
