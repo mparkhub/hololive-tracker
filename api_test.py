@@ -17,7 +17,7 @@ def test_upcoming_streams():
 
     request = youtube.search().list(
         part="snippet",
-        channelId="UCvaTdHTWBGv3MKj3KVqJVCw",
+        channelId="UChAnqc_AY5_I3Px5dig3X1Q",       # Inugami Korone's channel ID
         eventType="upcoming",
         type="video",
         maxResults=1
